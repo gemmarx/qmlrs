@@ -1,6 +1,7 @@
 #include "libqmlrswrapper.h"
 
 #include "qrsdynamicobject.h"
+#include "qrsqrc_qml.h"
 
 #include <QtQuick>
 #include <QDebug>

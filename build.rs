@@ -10,6 +10,7 @@ use std::path::PathBuf;
 fn main() {
     let wcd = env::current_dir().unwrap();
     let build = PathBuf::from(&wcd.join("ext/libqmlrswrapper/build"));
+    let dummy = PathBuf::from(&wcd.join("ext/libdummyapp"));
 
     let _ = fs::create_dir_all(&build);
 
@@ -83,11 +84,17 @@ fn main() {
         panic!("Failed to run make: {}", e);
     });
 
+    Command::new("make").current_dir(&dummy).output().unwrap_or_else(|e| {
+        panic!("Failed to run make: {}", e);
+    });
+
     if cfg!(windows) && is_msys {
         println!("cargo:rustc-link-search=native={}\\system32",env::var("WINDIR").unwrap());
     }
     println!("cargo:rustc-link-lib=static=qmlrswrapper");
+    println!("cargo:rustc-link-lib=static=dummyapp");
     println!("cargo:rustc-link-lib=dylib=stdc++");
     println!("cargo:rustc-link-search=native={}",build.display());
+    println!("cargo:rustc-link-search=native={}",dummy.display());
     pkg_config::find_library("Qt5Core Qt5Gui Qt5Qml Qt5Quick").unwrap();
 }

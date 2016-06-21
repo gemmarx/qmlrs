@@ -1,3 +1,7 @@
 /target
 /Cargo.lock
 ext/libqmlrswrapper/build
+ext/libdummyapp/lib*.a
+ext/libdummyapp/dummy.*
+/examples/lib*.a
+/examples/qml.*
