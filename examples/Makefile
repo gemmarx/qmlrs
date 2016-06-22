@@ -26,7 +26,7 @@ libqmlapp.a: qml.o
 	$(AR) csr $@ $^
 
 factorial_qrc: factorial_qrc.rs factorial_ui.qml libqmlapp.a
-	$(RSC) factorial_qrc.rs -o $(PREFIX)/examples/$@ -lstatic=qmlapp -Ldependency=$(PREFIX)/deps --extern qmlrs=$(PREFIX)/libqmlrs.rlib
+	$(RSC) $< -o $(PREFIX)/examples/$@ -lstatic=qmlapp -Ldependency=$(PREFIX)/deps --extern qmlrs=$(PREFIX)/libqmlrs.rlib
 
 clean:
 	-rm *.a *.o
